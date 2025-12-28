@@ -32,6 +32,7 @@ Complete guide for running this ML clustering and ETL project locally and deploy
 
 ### 1. Setup Environment
 
+**PowerShell (Windows):**
 ```powershell
 # Navigate to project
 cd C:\Users\danpl\projects\utilities\skills-inventory
@@ -41,8 +42,19 @@ pip install -r requirements.txt
 pip install -r requirements-dev.txt
 ```
 
+**Bash (Linux/Mac):**
+```bash
+# Navigate to project
+cd ~/projects/utilities/skills-inventory
+
+# Install dependencies
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
+```
+
 ### 2. Run Tests Locally
 
+**PowerShell (Windows):**
 ```powershell
 # Run all tests
 pytest
@@ -58,9 +70,28 @@ pytest tests/unit/test_etl_job.py -v
 start htmlcov/index.html
 ```
 
+**Bash (Linux/Mac):**
+```bash
+# Run all tests
+pytest
+
+# Run with coverage
+pytest --cov=src --cov-report=html
+
+# Run specific tests
+pytest tests/unit/test_clustering.py -v
+pytest tests/unit/test_etl_job.py -v
+
+# View coverage report (Linux)
+xdg-open htmlcov/index.html
+# Or on Mac
+open htmlcov/index.html
+```
+
 ### 3. Test Clustering Logic Locally
 
-```powershell
+**PowerShell & Bash (same commands):**
+```bash
 # Test K-Means clustering with sample data
 python -c "
 import pandas as pd
@@ -92,6 +123,7 @@ print(kmeans.cluster_centers_)
 
 ### 4. Test Frontend Locally
 
+**PowerShell (Windows):**
 ```powershell
 # Start a simple local web server
 cd frontend
@@ -103,9 +135,24 @@ start http://localhost:8000
 # Note: Will show "No data" until connected to AWS
 ```
 
+**Bash (Linux/Mac):**
+```bash
+# Start a simple local web server
+cd frontend
+python -m http.server 8000
+
+# Open in browser (Linux)
+xdg-open http://localhost:8000
+# Or on Mac
+open http://localhost:8000
+
+# Note: Will show "No data" until connected to AWS
+```
+
 ### 5. Validate Data Format
 
-```powershell
+**PowerShell & Bash (same commands):**
+```bash
 # Check sample data structure
 python -c "
 import csv
@@ -128,7 +175,8 @@ for key, value in rows[0].items():
 
 ### Step 1: Configure AWS Credentials
 
-```powershell
+**PowerShell & Bash (same commands):**
+```bash
 # Configure AWS CLI (one-time setup)
 aws configure
 
@@ -144,7 +192,8 @@ aws sts get-caller-identity
 
 ### Step 2: Deploy Infrastructure with Terraform
 
-```powershell
+**PowerShell & Bash (same commands):**
+```bash
 # Navigate to Terraform directory
 cd infrastructure/terraform
 
@@ -214,6 +263,7 @@ Write-Host "Job running... Check CloudWatch Logs at /aws-glue/jobs/$glueJobName"
 
 ### Step 5: Run Crawler (Create Athena Tables)
 
+**PowerShell (Windows):**
 ```powershell
 # Get crawler name
 $crawlerName = terraform output -raw glue_crawler_name
@@ -232,9 +282,30 @@ do {
 aws glue get-tables --database-name skills_inventory | ConvertFrom-Json | Select-Object -ExpandProperty TableList | Select-Object Name
 ```
 
+**Bash (Linux/Mac):**
+```bash
+# Get crawler name
+CRAWLER_NAME=$(terraform output -raw glue_crawler_name)
+
+# Start crawler
+aws glue start-crawler --name $CRAWLER_NAME
+
+# Wait for crawler to complete
+while true; do
+    sleep 10
+    STATUS=$(aws glue get-crawler --name $CRAWLER_NAME --query 'Crawler.State' --output text)
+    echo "Crawler status: $STATUS"
+    [[ "$STATUS" != "RUNNING" ]] && break
+done
+
+# Verify tables created
+aws glue get-tables --database-name skills_inventory --query 'TableList[*].Name'
+```
+
 ### Step 6: Train Clustering Model (Optional)
 
-```powershell
+**PowerShell & Bash (same commands):**
+```bash
 # Train SageMaker K-Means model
 cd ../../src/sagemaker/sagemaker
 python train_clustering.py
@@ -248,6 +319,7 @@ python train_clustering.py
 
 ### Step 7: Deploy Frontend Dashboard
 
+**PowerShell (Windows):**
 ```powershell
 # Get website bucket name
 $websiteBucket = terraform output -raw website_bucket
@@ -266,6 +338,29 @@ Write-Host "`nWebsite available at: $websiteUrl" -ForegroundColor Green
 
 # Open in browser
 start $websiteUrl
+```
+
+**Bash (Linux/Mac):**
+```bash
+# Get website bucket name
+WEBSITE_BUCKET=$(terraform output -raw website_bucket)
+
+# Upload frontend files
+cd ../../../frontend
+aws s3 cp index.html s3://$WEBSITE_BUCKET/
+aws s3 cp styles.css s3://$WEBSITE_BUCKET/
+aws s3 cp app.js s3://$WEBSITE_BUCKET/
+
+# Get website URL
+cd ../infrastructure/terraform
+WEBSITE_URL=$(terraform output -raw website_url)
+
+echo -e "\nWebsite available at: $WEBSITE_URL"
+
+# Open in browser (Linux)
+xdg-open $WEBSITE_URL
+# Or on Mac
+open $WEBSITE_URL
 ```
 
 ### Step 8: Test Clustering Lambda
@@ -639,6 +734,7 @@ terraform destroy
 
 ## 🚀 Quick Start Commands
 
+**PowerShell (Windows):**
 ```powershell
 # Complete local setup
 cd C:\Users\danpl\projects\utilities\skills-inventory
@@ -663,6 +759,37 @@ cd ../../frontend
 aws s3 sync . s3://$websiteBucket/ --exclude "*.md"
 $websiteUrl = terraform output -raw website_url
 start $websiteUrl
+```
+
+**Bash (Linux/Mac):**
+```bash
+# Complete local setup
+cd ~/projects/utilities/skills-inventory
+pip install -r requirements.txt -r requirements-dev.txt
+pytest
+
+# Complete AWS deployment
+aws configure
+cd infrastructure/terraform
+terraform init
+terraform apply
+DATA_BUCKET=$(terraform output -raw skills_data_bucket)
+WEBSITE_BUCKET=$(terraform output -raw website_bucket)
+GLUE_JOB_NAME=$(terraform output -raw glue_job_name)
+CRAWLER_NAME=$(terraform output -raw glue_crawler_name)
+aws s3 cp ../../data/skills_data.csv s3://$DATA_BUCKET/raw/skills_data.csv
+aws glue start-job-run --job-name $GLUE_JOB_NAME
+sleep 120
+aws glue start-crawler --name $CRAWLER_NAME
+sleep 60
+cd ../../frontend
+aws s3 sync . s3://$WEBSITE_BUCKET/ --exclude "*.md"
+cd ../infrastructure/terraform
+WEBSITE_URL=$(terraform output -raw website_url)
+# Linux
+xdg-open $WEBSITE_URL
+# Or Mac
+open $WEBSITE_URL
 ```
 
 ---
