@@ -1,0 +1,61 @@
+employee_id,name,department,skill,proficiency,years_experience
+emp_001,Alice Johnson,Engineering,Python,Expert,5
+emp_001,Alice Johnson,Engineering,AWS,Advanced,4
+emp_001,Alice Johnson,Engineering,Docker,Intermediate,3
+emp_002,Bob Smith,Engineering,JavaScript,Expert,6
+emp_002,Bob Smith,Engineering,React,Advanced,4
+emp_002,Bob Smith,Engineering,Node.js,Advanced,5
+emp_003,Carol White,Data Science,Python,Expert,7
+emp_003,Carol White,Data Science,Machine Learning,Expert,6
+emp_003,Carol White,Data Science,SQL,Advanced,8
+emp_004,David Lee,Data Science,R,Advanced,4
+emp_004,David Lee,Data Science,Statistics,Expert,5
+emp_004,David Lee,Data Science,Tableau,Intermediate,2
+emp_005,Emma Davis,Marketing,SEO,Advanced,3
+emp_005,Emma Davis,Marketing,Google Analytics,Expert,4
+emp_005,Emma Davis,Marketing,Content Marketing,Advanced,5
+emp_006,Frank Miller,Marketing,Social Media,Advanced,4
+emp_006,Frank Miller,Marketing,Adobe Creative Suite,Intermediate,3
+emp_006,Frank Miller,Marketing,Email Marketing,Advanced,3
+emp_007,Grace Chen,Sales,Salesforce,Expert,5
+emp_007,Grace Chen,Sales,Negotiation,Advanced,6
+emp_007,Grace Chen,Sales,CRM,Expert,5
+emp_008,Henry Wilson,Sales,B2B Sales,Expert,8
+emp_008,Henry Wilson,Sales,Account Management,Advanced,7
+emp_008,Henry Wilson,Sales,Presentation,Advanced,6
+emp_009,Iris Taylor,HR,Recruiting,Expert,5
+emp_009,Iris Taylor,HR,Employee Relations,Advanced,4
+emp_009,Iris Taylor,HR,HRIS,Intermediate,3
+emp_010,Jack Brown,HR,Training & Development,Advanced,4
+emp_010,Jack Brown,HR,Performance Management,Advanced,5
+emp_010,Jack Brown,HR,Compensation Analysis,Intermediate,2
+emp_011,Karen Martinez,Finance,Financial Analysis,Expert,6
+emp_011,Karen Martinez,Finance,Excel,Expert,8
+emp_011,Karen Martinez,Finance,SAP,Advanced,4
+emp_012,Leo Anderson,Finance,Budgeting,Advanced,5
+emp_012,Leo Anderson,Finance,Forecasting,Advanced,4
+emp_012,Leo Anderson,Finance,QuickBooks,Intermediate,3
+emp_013,Maria Garcia,Engineering,Java,Expert,7
+emp_013,Maria Garcia,Engineering,Spring Framework,Advanced,5
+emp_013,Maria Garcia,Engineering,Microservices,Advanced,4
+emp_014,Nathan Thomas,Engineering,Go,Advanced,3
+emp_014,Nathan Thomas,Engineering,Kubernetes,Advanced,3
+emp_014,Nathan Thomas,Engineering,CI/CD,Intermediate,2
+emp_015,Olivia Martinez,Data Science,Deep Learning,Advanced,3
+emp_015,Olivia Martinez,Data Science,TensorFlow,Advanced,3
+emp_015,Olivia Martinez,Data Science,PyTorch,Intermediate,2
+emp_016,Peter Jackson,Security,Cybersecurity,Expert,6
+emp_016,Peter Jackson,Security,Penetration Testing,Advanced,5
+emp_016,Peter Jackson,Security,Security Compliance,Advanced,4
+emp_017,Quinn Roberts,Security,Network Security,Advanced,5
+emp_017,Quinn Roberts,Security,Incident Response,Advanced,4
+emp_017,Quinn Roberts,Security,SIEM Tools,Intermediate,3
+emp_018,Rachel Kim,Product,Product Management,Expert,6
+emp_018,Rachel Kim,Product,Agile,Advanced,7
+emp_018,Rachel Kim,Product,User Research,Advanced,4
+emp_019,Sam Patel,Product,Product Strategy,Advanced,5
+emp_019,Sam Patel,Product,Roadmapping,Advanced,4
+emp_019,Sam Patel,Product,Stakeholder Management,Advanced,5
+emp_020,Tina Cooper,Design,UI/UX Design,Expert,5
+emp_020,Tina Cooper,Design,Figma,Expert,6
+emp_020,Tina Cooper,Design,User Testing,Advanced,4

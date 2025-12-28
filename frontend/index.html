@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills Inventory & Gap Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Skills Inventory & Gap Analysis Tool</h1>
+        <p>Visualize skill clusters and identify organizational gaps</p>
+    </header>
+
+    <main>
+        <section class="dashboard">
+            <div class="card">
+                <h3>Total Skills</h3>
+                <p class="metric" id="total-skills">--</p>
+            </div>
+            <div class="card">
+                <h3>Skill Clusters</h3>
+                <p class="metric" id="total-clusters">--</p>
+            </div>
+            <div class="card">
+                <h3>Employees</h3>
+                <p class="metric" id="total-employees">--</p>
+            </div>
+            <div class="card">
+                <h3>Avg Proficiency</h3>
+                <p class="metric" id="avg-proficiency">--</p>
+            </div>
+        </section>
+
+        <section class="visualization">
+            <h2>Skill Clusters Visualization</h2>
+            <div id="cluster-chart"></div>
+        </section>
+
+        <section class="gap-analysis">
+            <h2>Gap Analysis</h2>
+            <div id="gap-table"></div>
+        </section>
+
+        <section class="filters">
+            <h2>Filters</h2>
+            <div class="filter-group">
+                <label for="department-filter">Department:</label>
+                <select id="department-filter">
+                    <option value="all">All Departments</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="Data Science">Data Science</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Sales">Sales</option>
+                    <option value="HR">HR</option>
+                    <option value="Finance">Finance</option>
+                </select>
+            </div>
+            <button id="export-btn">Export Data (CSV)</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Skills Inventory Tool | Built with AWS</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
