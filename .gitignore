@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+venv/
+.DS_Store
+*.tfstate*
+.terraform/
+*.zip
+*.log
+.env
